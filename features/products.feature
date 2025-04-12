@@ -38,3 +38,60 @@ Scenario: Create a Product
     And I should see "True" in the "Available" dropdown
     And I should see "Tools" in the "Category" dropdown
     And I should see "34.95" in the "Price" field
+
+Scenario: Update a Product
+    When I visit the "Home Page"
+    And I set the "Name" to "Hammer"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    When I set the "Name" to "Updated Hammer"
+    And I set the "Description" to "An updated claw hammer"
+    And I set the "Price" to "39.95"
+    And I press the "Update" button
+    Then I should see the message "Product Updated"
+    And I should see "Updated Hammer" in the "Name" field
+    And I should see "An updated claw hammer" in the "Description" field
+    And I should see "39.95" in the "Price" field
+
+Scenario: Delete a Product
+    When I visit the "Home Page"
+    And I set the "Name" to "Updated Hammer"
+    And I press the "Search" button
+    Then I should see the message "Success"
+    When I press the "Delete" button
+    Then I should see the message "Product Deleted"
+    And I should not see "Updated Hammer" in the "Name" field
+
+Scenario: List all Products
+    When I visit the "Home Page"
+    And I press the "List All Products" button
+    Then I should see a list of products
+    And I should see "Hat" in the list
+    And I should see "Shoes" in the list
+    And I should see "Big Mac" in the list
+    And I should see "Sheets" in the list
+
+Scenario: Search for Products by Category
+    When I visit the "Home Page"
+    And I set the "Category" to "Cloths"
+    And I press the "Search by Category" button
+    Then I should see a list of products in the "Cloths" category
+    And I should see "Hat" in the list
+    And I should see "Shoes" in the list
+
+Scenario: Search for Products by Availability
+    When I visit the "Home Page"
+    And I set the "Availability" to "True"
+    And I press the "Search by Availability" button
+    Then I should see a list of products that are available
+    And I should see "Hat" in the list
+    And I should see "Big Mac" in the list
+    And I should see "Sheets" in the list
+
+Scenario: Search for Products by Name
+    When I visit the "Home Page"
+    And I set the "Name" to "Hat"
+    And I press the "Search by Name" button
+    Then I should see a product with the name "Hat"
+    And I should see "A red fedora" in the "Description" field
+    And I should see "59.95" in the "Price" field
